@@ -1,5 +1,6 @@
 package izatta.izatta.model.entities;
 
+import izatta.izatta.model.entities.enuns.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,9 +32,10 @@ public class Person implements Serializable {
     @Column(nullable = false, length = 11)
     private String cpf;
 
-    @Column(nullable = false)
+    @Column
     private LocalDate birth;
 
+    @Enumerated
     @Column(nullable = false, length = 9)
     private Gender gender;
 }

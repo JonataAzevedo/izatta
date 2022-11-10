@@ -1,5 +1,6 @@
 package izatta.izatta.model.entities;
 
+import izatta.izatta.model.entities.enuns.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class Doctor implements Serializable {
     @Column(nullable = false, length = 50)
     private String name;
 
+    @Enumerated
     @Column(nullable = false, length = 9)
     private Gender gender;
 
