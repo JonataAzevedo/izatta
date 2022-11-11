@@ -14,12 +14,14 @@ public class RestExceptionBadRequestHandler {
 
     @ExceptionHandler(ResourceBadRequestException.class)
     public ResponseEntity<?> handleResourceNotFoundException (ResourceBadRequestException rfnException){
+
         ResourceBadRequestDetails rnfDetails = ResourceBadRequestDetails.builder()
                 .timestamp(new Date().getTime())
                 .status(HttpStatus.BAD_REQUEST.value())
                 .title("Resource bad request")
                 .detail(rfnException.getMessage())
                 .message(rfnException.getClass().getName()).build();
+
         return new ResponseEntity<>(rnfDetails, HttpStatus.BAD_REQUEST);
     }
 }

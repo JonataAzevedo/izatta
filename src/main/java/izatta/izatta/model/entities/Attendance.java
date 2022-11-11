@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Data
@@ -42,7 +44,7 @@ public class Attendance implements Serializable {
     private Integer room;
 
     @Column(nullable = false)
-    private LocalDateTime dateTimeAttendance;
+    private LocalDate dateTimeAttendance;
 
     @Enumerated
     @Column(nullable = false, length = 9)

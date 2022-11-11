@@ -43,5 +43,4 @@ public class ControllerAttendance {
 
         return serviceAttendance.listAll();
     }
-
 }

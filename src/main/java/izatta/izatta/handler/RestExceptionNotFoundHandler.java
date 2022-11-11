@@ -14,12 +14,14 @@ public class RestExceptionNotFoundHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleResourceNotFoundException (ResourceNotFoundException rfnException){
+
         ResourceNotFoundDetails rnfDetails = ResourceNotFoundDetails.builder()
                 .timestamp(new Date().getTime())
                 .status(HttpStatus.NOT_FOUND.value())
                 .title("Resource not found")
                 .detail(rfnException.getMessage())
                 .message(rfnException.getClass().getName()).build();
+
         return new ResponseEntity<>(rnfDetails, HttpStatus.NOT_FOUND);
     }
 }

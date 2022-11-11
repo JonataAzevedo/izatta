@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Enumerated;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -29,7 +29,7 @@ public class DtoAttendance {
     private String nameDoctor;
 
     @NotNull
-    private LocalDateTime dateTimeAttendance;
+    private LocalDate dateTimeAttendance;
 
     @NotNull
     private Integer room;

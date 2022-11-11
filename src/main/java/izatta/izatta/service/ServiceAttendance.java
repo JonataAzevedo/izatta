@@ -7,12 +7,10 @@ import izatta.izatta.model.dto.DtoChanger;
 import izatta.izatta.model.entities.Attendance;
 import izatta.izatta.model.entities.enuns.Status;
 import izatta.izatta.repository.RepositoryAttendance;
-import izatta.izatta.repository.RepositoryDoctor;
-import izatta.izatta.repository.RepositoryPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,12 +19,6 @@ public class ServiceAttendance {
 
     @Autowired
     private RepositoryAttendance repositoryAttendance;
-
-    @Autowired
-    private RepositoryDoctor repositoryDoctor;
-
-    @Autowired
-    private RepositoryPerson repositoryPerson;
 
     public Attendance create (DtoAttendance dtoAttendance){
 
@@ -39,9 +31,12 @@ public class ServiceAttendance {
         attendance.setRoom(dtoAttendance.getRoom());
         attendance.setStatus(Status.valueOf("PENDENTE"));
 
-        if (dtoAttendance.getDateTimeAttendance().isBefore(LocalDateTime.now())){
-
+        if (dtoAttendance.getDateTimeAttendance().isBefore(LocalDate.now())){
             throw new ResourceBadRequestException("The date entered cannot be earlier than the current date: " + dtoAttendance.getDateTimeAttendance());
+        }
+
+        if (repositoryAttendance.existsByDateTimeAttendanceAndCpf(dtoAttendance.getDateTimeAttendance(), dtoAttendance.getCpf())){
+            throw new RuntimeException("This person already has an appointment for this day: " + dtoAttendance.getDateTimeAttendance());
         }
 
         return repositoryAttendance.save(attendance);
@@ -52,7 +47,6 @@ public class ServiceAttendance {
         Optional<Attendance> attendance = repositoryAttendance.findById(id);
 
         if (attendance.isEmpty()){
-
             throw new ResourceNotFoundException("Attendance not found for ID: " + id);
         }
 
@@ -68,7 +62,6 @@ public class ServiceAttendance {
         Optional<Attendance> attendance = repositoryAttendance.findById(id);
 
         if (attendance.isEmpty()) {
-
             throw new ResourceNotFoundException("Attendance not found for ID: " + id);
         }
 
