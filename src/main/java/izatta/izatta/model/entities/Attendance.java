@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Timer;
 
 @Entity
 @Data
@@ -44,12 +46,18 @@ public class Attendance implements Serializable {
     private Integer room;
 
     @Column(nullable = false)
-    private LocalDate dateTimeAttendance;
+    private LocalDate dateAttendance;
+
+    @Column(nullable = false)
+    private Time hourAttendance;
 
     @Enumerated
     @Column(nullable = false, length = 9)
     private Status status;
 
     @Column
-    private LocalDateTime dateTimeClose;
+    private LocalDate dateClosed;
+
+    @Column
+    private Time hourClosed;
 }

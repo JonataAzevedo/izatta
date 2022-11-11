@@ -1,6 +1,7 @@
 package izatta.izatta.controller;
 
 import izatta.izatta.model.dto.DtoAttendance;
+import izatta.izatta.model.dto.DtoChangeAttendance;
 import izatta.izatta.model.dto.DtoChanger;
 import izatta.izatta.model.entities.Attendance;
 import izatta.izatta.service.ServiceAttendance;
@@ -26,10 +27,16 @@ public class ControllerAttendance {
         return new ResponseEntity<>(attendance, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Attendance> change(@PathVariable Integer id, @RequestBody DtoChanger dtoChanger){
+    @PutMapping("/cancel/{id}")
+    public ResponseEntity<Attendance> changeCancel(@PathVariable Integer id, @RequestBody DtoChanger dtoChanger){
 
-        return new ResponseEntity<>(serviceAttendance.change(id, dtoChanger), HttpStatus.OK);
+        return new ResponseEntity<>(serviceAttendance.chanceCancel(id, dtoChanger), HttpStatus.OK);
+    }
+
+    @PutMapping("/change/{id}")
+    public ResponseEntity<Attendance> changeDateAttendance(@PathVariable Integer id, @RequestBody DtoChangeAttendance changeAttendance){
+
+        return new ResponseEntity<>(serviceAttendance.changeDateAttendance(id, changeAttendance), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

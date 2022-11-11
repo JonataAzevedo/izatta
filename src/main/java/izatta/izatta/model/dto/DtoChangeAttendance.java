@@ -8,40 +8,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
-import javax.persistence.Enumerated;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.util.Timer;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DtoAttendance {
+public class DtoChangeAttendance {
 
     @NotNull
-    private String name;
-
-    @NotNull
-    private Integer crm;
-
-    @NotNull
-    private String cpf;
-
-    @NotNull
-    private String nameDoctor;
-
-    @NotNull
+    @Column(nullable = false)
     private LocalDate dateAttendance;
-
-    @NotNull
-    private Integer room;
-
-    @NotNull
-    @Enumerated
-    private Status status;
 
     @NotNull
     @Column(nullable = false)
     private Time hourAttendance;
+
+    @NotNull
+    @Column(nullable = false)
+    private Status status;
 }

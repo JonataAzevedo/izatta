@@ -9,5 +9,5 @@ import java.time.LocalDate;
 @Repository
 public interface RepositoryAttendance extends JpaRepository <Attendance, Integer> {
 
-    Boolean existsByDateTimeAttendanceAndCpf(LocalDate dateTimeAttendance, String cpf);
+    Boolean existsByDateAttendanceAndCpf(LocalDate dateAttendance, String cpf);
 }

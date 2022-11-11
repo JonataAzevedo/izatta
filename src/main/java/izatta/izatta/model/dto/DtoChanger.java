@@ -7,10 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Enumerated;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @Builder
@@ -22,6 +23,9 @@ public class DtoChanger {
     @Enumerated
     private Status status;
 
-    @NotNull
-    private LocalDateTime dateTimeClose;
+    @Column
+    private LocalDate dateClosed;
+
+    @Column
+    private Time hourClosed;
 }
