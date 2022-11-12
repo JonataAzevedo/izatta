@@ -11,7 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.util.Timer;
 
 @Data
 @Builder
