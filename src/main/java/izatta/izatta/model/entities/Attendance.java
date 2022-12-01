@@ -39,7 +39,7 @@ public class Attendance implements Serializable {
 
     @ApiModelProperty(value = "Doctor CRM")
     @Column(nullable = false)
-    private Integer crm;
+    private String crm;
 
     @ApiModelProperty(value = "Doctor name")
     @Column(nullable = false, length = 255)

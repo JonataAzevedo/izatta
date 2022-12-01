@@ -24,6 +24,7 @@ public class ServiceAttendance {
     public Attendance create (DtoAttendance dtoAttendance){
 
         Attendance attendance = new Attendance();
+        attendance.setId(dtoAttendance.getId());
         attendance.setName(dtoAttendance.getName());
         attendance.setCpf(dtoAttendance.getCpf());
         attendance.setCrm(dtoAttendance.getCrm());
@@ -39,7 +40,7 @@ public class ServiceAttendance {
         }
 
         if (repositoryAttendance.existsByDateAttendanceAndCpf(dtoAttendance.getDateAttendance(), dtoAttendance.getCpf())){
-            throw new RuntimeException("This person already has an appointment for this day: " + dtoAttendance.getDateAttendance());
+            throw new ResourceBadRequestException("This person already has an appointment for this day: " + dtoAttendance.getDateAttendance());
         }
 
         return repositoryAttendance.save(attendance);
@@ -50,7 +51,15 @@ public class ServiceAttendance {
         Optional<Attendance> attendance = repositoryAttendance.findById(id);
 
         if (attendance.isEmpty()){
-            throw new ResourceNotFoundException("Attendance not found for ID: " + id);
+            throw new ResourceBadRequestException("Attendance not found for ID: " + id);
+        }
+
+        if (dtoChangeAttendance.getDateAttendance().isBefore(LocalDate.now())){
+            throw new ResourceBadRequestException("Your appointment cannot be scheduled for a day before today");
+        }
+
+        if (dtoChangeAttendance.getHourAttendance().after(attendance.get().getHourAttendance())){
+            throw new ResourceBadRequestException("The hour cannot be earlier than the creation hour.");
         }
 
         Attendance changeAttendance = attendance.get();
@@ -66,6 +75,14 @@ public class ServiceAttendance {
 
         if (attendance.isEmpty()){
             throw new ResourceNotFoundException("Attendance not found for ID: " + id);
+        }
+
+        if (attendance.get().getDateAttendance().isAfter(dtoChanger.getDateClosed())){
+            throw new ResourceBadRequestException("The cancellation date cannot be earlier than the creation date.");
+        }
+
+        if (attendance.get().getHourAttendance().before(dtoChanger.getHourClosed())){
+            throw new ResourceBadRequestException("The cancellation hour cannot be earlier than the creation hour.");
         }
 
         Attendance changeAttendance = attendance.get();

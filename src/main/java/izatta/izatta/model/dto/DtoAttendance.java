@@ -7,8 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.sql.Time;
 import java.time.LocalDate;
 
@@ -18,11 +17,15 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class DtoAttendance {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
+
     @NotNull
     private String name;
 
     @NotNull
-    private Integer crm;
+    private String crm;
 
     @NotNull
     private String cpf;
